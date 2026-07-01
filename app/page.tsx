@@ -106,61 +106,56 @@ const testimonials = [
     id: "t1",
     name: "Sarah Chen",
     role: "CTO at Luminary",
-    avatar: "https://www.wallstreetmojo.com/wp-content/uploads/Performance_Audit_3c348e7b70.jpg",
-    quote:
-      "Alex rebuilt our entire frontend in six weeks. The new design system cut our dev time in half and our users noticed the difference immediately.",
+    avatar: "https://www.wallstreetmojo.com/wp-content/uploads/2023/07/Performa-Invoice.jpg",
+    text: "Alex delivered a design system that our entire engineering org adopted within weeks. The documentation alone was worth the engagement.",
     stars: 5,
   },
   {
     id: "t2",
     name: "Marcus Webb",
     role: "Founder at Orbit",
-    avatar: "https://static.www.nfl.com/image/private/t_headshot_desktop/league/aewahyauhdstskbbuq43",
-    quote:
-      "Exceptional attention to detail and a rare ability to translate complex data into intuitive interfaces. The dashboard Alex built is our best sales tool.",
+    avatar: "https://www.wallstreetmojo.com/wp-content/uploads/2023/07/Performa-Invoice.jpg",
+    text: "Shipped our analytics dashboard in 6 weeks. Performance, design, and code quality all exceeded expectations. Will hire again.",
     stars: 5,
   },
   {
     id: "t3",
     name: "Priya Nair",
     role: "Product Lead at Vela",
-    avatar: "https://media.licdn.com/dms/image/v2/D5622AQE3NpM1FP01Yg/feedshare-shrink_800/B56Zf4pvKcGUAg-/0/1752223383746?e=2147483647&v=beta&t=C11dC6M36dpAKpcbBRMtusPrnkgE-cNJfHc93ZNpFoQ",
-    quote:
-      "Delivered ahead of schedule with zero bugs in production. The checkout redesign directly contributed to a 34% lift in our conversion rate.",
+    avatar: "https://www.wallstreetmojo.com/wp-content/uploads/2023/07/Performa-Invoice.jpg",
+    text: "The new storefront Alex built increased our conversion rate by 34%. He understood both the technical and business requirements perfectly.",
     stars: 5,
   },
 ];
 
-const stats = [
-  { value: "5+", label: "Years of experience" },
-  { value: "40+", label: "Projects shipped" },
-  { value: "98%", label: "Client satisfaction" },
-  { value: "12", label: "Open-source packages" },
+const socials = [
+  { icon: Github, label: "GitHub", href: "https://github.com" },
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
+  { icon: Mail, label: "Email", href: `mailto:${APP_EMAIL}` },
 ];
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-semibold uppercase tracking-widest mb-4">
-      <Sparkles size={11} />
-      {children}
-    </span>
+    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 mb-4">
+      <Sparkles size={12} className="text-purple-400" />
+      <span className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+        {children}
+      </span>
+    </div>
   );
 }
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-  const shouldReduce = useReducedMotion();
-
   return (
     <motion.article
-      variants={shouldReduce ? fadeIn : scaleIn}
-      whileHover={shouldReduce ? {} : { y: -6, scale: 1.01 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative flex flex-col rounded-2xl overflow-hidden border border-white/8 bg-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_16px_48px_-16px_rgba(0,0,0,0.5)] hover:border-purple-500/30 hover:shadow-[0_4px_24px_rgba(168,85,247,0.12),0_24px_64px_-16px_rgba(0,0,0,0.6)] transition-all duration-500"
+      variants={fadeInUp}
+      className="group relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-purple-500/30 transition-all duration-500 hover:shadow-[0_0_40px_rgba(168,85,247,0.08)] flex flex-col"
     >
       {/* Image */}
-      <div className="relative h-52 overflow-hidden bg-[#1a1a1a]">
+      <div className="relative h-52 overflow-hidden bg-[#111]">
         <img
           src={project.image}
           alt={project.title}
@@ -169,29 +164,29 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             (e.currentTarget as HTMLImageElement).style.display = "none";
           }}
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
         {project.featured && (
-          <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-purple-500/90 text-white text-xs font-semibold backdrop-blur-sm">
+          <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-semibold backdrop-blur-sm">
             Featured
-          </span>
+          </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-60" />
       </div>
 
-      {/* Body */}
-      <div className="flex flex-col flex-1 p-6">
-        <h3 className="font-syne font-bold text-lg text-white mb-2 tracking-tight">
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-1">
+        <h3 className="font-syne font-bold text-lg text-white mb-2 group-hover:text-purple-300 transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-white/55 text-sm leading-relaxed mb-4 flex-1">
+        <p className="text-white/50 text-sm leading-relaxed mb-4 flex-1">
           {project.description}
         </p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-5">
-          {(project.tags ?? []).map((tag) => (
+          {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/8 text-white/50 text-xs font-medium"
+              className="px-2 py-1 rounded-md bg-white/5 text-white/40 text-xs font-medium border border-white/5"
             >
               {tag}
             </span>
@@ -199,13 +194,13 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         </div>
 
         {/* Links */}
-        <div className="flex items-center gap-3">
+        <div className="flex gap-3">
           {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors duration-200"
+              className="flex items-center gap-1.5 text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors duration-200"
             >
               <ExternalLink size={14} />
               Live
@@ -216,7 +211,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-white/40 hover:text-white/70 transition-colors duration-200"
+              className="flex items-center gap-1.5 text-sm font-medium text-white/40 hover:text-white transition-colors duration-200"
             >
               <Github size={14} />
               Code
@@ -228,426 +223,217 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   );
 }
 
-function SkillBar({ skill, index }: { skill: typeof skills[0]; index: number }) {
-  const shouldReduce = useReducedMotion();
-  const barVariant: Variants = {
-    hidden: { width: "0%" },
-    visible: {
-      width: `${skill.level}%`,
-      transition: { duration: shouldReduce ? 0 : 1.0, ease: "easeOut", delay: index * 0.07 },
-    },
-  };
-
-  return (
-    <motion.div variants={fadeInUp} className="group">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-white/85">{skill.name}</span>
-          <span className="text-xs text-white/30 font-medium">{skill.category}</span>
-        </div>
-        <span className="text-xs font-bold text-purple-400">{skill.level}%</span>
-      </div>
-      <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
-        <motion.div
-          variants={barVariant}
-          className="h-full rounded-full bg-gradient-to-r from-purple-600 to-purple-400"
-        />
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Contact form state ──────────────────────────────────────────────────────
-
-function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-  };
-
-  if (sent) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center justify-center gap-4 py-16 text-center"
-      >
-        <div className="w-14 h-14 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center">
-          <Check size={24} className="text-purple-400" />
-        </div>
-        <h3 className="font-syne font-bold text-xl text-white">Message sent!</h3>
-        <p className="text-white/50 text-sm max-w-xs">
-          Thanks for reaching out. I typically respond within 24 hours.
-        </p>
-      </motion.div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            placeholder="Your name"
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-purple-500/60 focus:bg-white/8 transition-all duration-300"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            placeholder="your@email.com"
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-purple-500/60 focus:bg-white/8 transition-all duration-300"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">
-          Message
-        </label>
-        <textarea
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          required
-          rows={5}
-          placeholder="Tell me about your project..."
-          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-purple-500/60 focus:bg-white/8 transition-all duration-300 resize-none"
-        />
-      </div>
-      <motion.button
-        type="submit"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.97 }}
-        className="w-full py-3.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-semibold text-sm transition-all duration-300 shadow-[0_0_24px_rgba(168,85,247,0.35)] hover:shadow-[0_0_36px_rgba(168,85,247,0.55)]"
-      >
-        Send Message
-      </motion.button>
-    </form>
-  );
-}
-
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
-  const shouldReduce = useReducedMotion();
+  const [formState, setFormState] = useState<{
+    name: string;
+    email: string;
+    message: string;
+  }>({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    await new Promise((r) => setTimeout(r, 1200));
+    setSending(false);
+    setSubmitted(true);
+  };
 
   return (
-    <main className="bg-[#0a0a0a] text-white overflow-x-hidden">
+    <main className="min-h-screen bg-[#0f0f0f] text-white overflow-x-hidden">
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-20"
-      >
-        {/* Background glow */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-purple-600/10 blur-[120px]" />
-          <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] rounded-full bg-purple-800/8 blur-[80px]" />
-          {/* Subtle grid */}
-          <div
-            className="absolute inset-0 opacity-[0.025]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
-            }}
-          />
+      <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-16 overflow-hidden">
+        {/* Background glows */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-800/8 rounded-full blur-[100px]" />
         </div>
 
-        <div className="relative max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left: copy */}
-          <motion.div
-            variants={shouldReduce ? fadeIn : staggerContainer}
-            initial="hidden"
-            animate="visible"
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          className="relative z-10 max-w-4xl mx-auto text-center"
+        >
+          <motion.h1
+            variants={fadeInUp}
+            className="font-syne font-extrabold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-6"
           >
-            <motion.div variants={fadeInUp}>
-              <SectionLabel>Available for work</SectionLabel>
-            </motion.div>
+            <span className="block text-white">Creative</span>
+            <span className="block bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500 bg-clip-text text-transparent">
+              Developer
+            </span>
+            <span className="block text-white/20 text-3xl sm:text-4xl md:text-5xl mt-2 font-light">
+              & Designer
+            </span>
+          </motion.h1>
 
-            <motion.h1
-              variants={fadeInUp}
-              className="font-syne font-extrabold text-5xl md:text-6xl xl:text-7xl tracking-tight text-balance leading-[1.05] mb-6"
+          <motion.p
+            variants={fadeInUp}
+            className="text-white/50 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
+          >
+            I craft high-performance web experiences that live at the
+            intersection of engineering precision and thoughtful design.
+            Currently building at the edge of what&apos;s possible.
+          </motion.p>
+
+          <motion.div
+            variants={fadeInUp}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Link
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .querySelector("#projects")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded-full transition-all duration-300 shadow-[0_0_24px_rgba(168,85,247,0.35)] hover:shadow-[0_0_36px_rgba(168,85,247,0.55)] hover:scale-105 active:scale-95"
             >
-              I build{" "}
-              <span className="relative inline-block">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-300">
-                  digital
-                </span>
-              </span>{" "}
-              products people love.
-            </motion.h1>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/55 text-lg leading-relaxed mb-8 max-w-lg text-pretty"
+              View My Work
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-1 transition-transform duration-300"
+              />
+            </Link>
+            <Link
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .querySelector("#contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-white/25 text-white/70 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-white/5"
             >
-              {APP_NAME} — {APP_TAGLINE}. I craft fast, accessible, and
-              beautifully animated web experiences for startups and scale-ups
-              worldwide.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-              <motion.a
-                href="#projects"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                whileHover={shouldReduce ? {} : { scale: 1.04 }}
-                whileTap={shouldReduce ? {} : { scale: 0.96 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-500 hover:bg-purple-400 text-white font-semibold text-sm transition-all duration-300 shadow-[0_0_24px_rgba(168,85,247,0.35)] hover:shadow-[0_0_36px_rgba(168,85,247,0.55)]"
-              >
-                View my work
-                <ArrowRight size={16} />
-              </motion.a>
-              <motion.a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                whileHover={shouldReduce ? {} : { scale: 1.04 }}
-                whileTap={shouldReduce ? {} : { scale: 0.96 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 hover:border-white/30 text-white/70 hover:text-white font-semibold text-sm transition-all duration-300"
-              >
-                Get in touch
-              </motion.a>
-            </motion.div>
-
-            {/* Social row */}
-            <motion.div
-              variants={fadeInUp}
-              className="flex items-center gap-4 mt-10"
-            >
-              {[
-                { icon: Github, href: "https://github.com", label: "GitHub" },
-                { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-                { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                { icon: Mail, href: `mailto:${APP_EMAIL}`, label: "Email" },
-              ].map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-purple-400 hover:border-purple-400/40 hover:bg-purple-400/5 transition-all duration-300"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
-            </motion.div>
+              <Mail size={16} />
+              Get In Touch
+            </Link>
           </motion.div>
 
-          {/* Right: portrait + floating badges */}
+          {/* Stats */}
           <motion.div
-            variants={shouldReduce ? fadeIn : slideInRight}
-            initial="hidden"
-            animate="visible"
-            className="relative flex justify-center lg:justify-end"
+            variants={fadeInUp}
+            className="mt-16 grid grid-cols-3 gap-8 max-w-sm mx-auto"
           >
-            <div className="relative w-72 h-72 md:w-80 md:h-80 xl:w-96 xl:h-96">
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-600/30 to-purple-900/10 blur-2xl scale-110" />
-              {/* Portrait */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-purple-500/30 shadow-[0_0_60px_rgba(168,85,247,0.2)]">
-                <img
-                  src="https://static.vecteezy.com/system/resources/thumbnails/054/511/449/small/portrait-of-a-young-male-software-developer-in-his-office-photo.jpg"
-                  alt={APP_NAME}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const el = e.currentTarget as HTMLImageElement;
-                    el.style.display = "none";
-                    const parent = el.parentElement;
-                    if (parent) {
-                      parent.style.background =
-                        "linear-gradient(135deg, #3b0764 0%, #1e1b4b 100%)";
-                    }
-                  }}
-                />
+            {[
+              { value: "5+", label: "Years Exp." },
+              { value: "40+", label: "Projects" },
+              { value: "98%", label: "Satisfaction" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="font-syne font-bold text-2xl text-white">
+                  {stat.value}
+                </div>
+                <div className="text-white/30 text-xs mt-1">{stat.label}</div>
               </div>
-
-              {/* Floating badge: experience */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-                className="absolute -left-8 top-1/4 px-4 py-2.5 rounded-2xl bg-[#1a1a1a] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-sm"
-              >
-                <p className="text-xs text-white/40 font-medium">Experience</p>
-                <p className="text-white font-bold text-sm font-syne">5+ Years</p>
-              </motion.div>
-
-              {/* Floating badge: projects */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.1, duration: 0.5 }}
-                className="absolute -right-6 bottom-1/4 px-4 py-2.5 rounded-2xl bg-[#1a1a1a] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-sm"
-              >
-                <p className="text-xs text-white/40 font-medium">Projects</p>
-                <p className="text-white font-bold text-sm font-syne">40+ Shipped</p>
-              </motion.div>
-            </div>
+            ))}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.6 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <span className="text-white/25 text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-white/20 text-xs tracking-widest uppercase">
+            Scroll
+          </span>
           <motion.div
-            animate={shouldReduce ? {} : { y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
             className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"
           />
         </motion.div>
       </section>
 
-      {/* ── STATS ────────────────────────────────────────────────────────── */}
-      <section className="relative py-16 border-y border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-900/5 to-transparent pointer-events-none" />
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
-          >
-            {stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={scaleIn}
-                className="text-center"
-              >
-                <p className="font-syne font-extrabold text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-white/40 text-sm">{stat.label}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* ── ABOUT ────────────────────────────────────────────────────────── */}
-      <section id="about" className="py-28 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          {/* Image side */}
-          <motion.div
-            variants={shouldReduce ? fadeIn : slideInLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="relative"
-          >
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] max-w-sm mx-auto lg:mx-0 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_32px_80px_-16px_rgba(0,0,0,0.6)]">
-              <img
-                src="https://static.wikia.nocookie.net/prototype/images/2/25/Alexander_Mercer.png/revision/latest?cb=20120304015459"
-                alt="Alex Mercer working"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  const el = e.currentTarget as HTMLImageElement;
-                  el.style.display = "none";
-                  const parent = el.parentElement;
-                  if (parent) {
-                    parent.style.background =
-                      "linear-gradient(160deg, #1e1b4b 0%, #0f0f0f 100%)";
-                  }
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 via-transparent to-transparent" />
-            </div>
-            {/* Decorative accent */}
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 rounded-3xl border border-purple-500/20 bg-purple-500/5 -z-10" />
-            <div className="absolute -top-6 -left-6 w-32 h-32 rounded-2xl border border-white/5 bg-white/2 -z-10" />
-          </motion.div>
-
-          {/* Copy side */}
+      <section id="about" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
           >
-            <motion.div variants={fadeInUp}>
-              <SectionLabel>About me</SectionLabel>
+            {/* Text */}
+            <motion.div variants={slideInLeft}>
+              <SectionLabel>About Me</SectionLabel>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl text-white mb-6 leading-tight">
+                Building things that
+                <span className="text-purple-400"> matter</span>
+              </h2>
+              <div className="space-y-4 text-white/50 leading-relaxed">
+                <p>
+                  I&apos;m {APP_NAME}, a full-stack developer with 5+ years of
+                  experience turning complex problems into elegant, performant
+                  solutions. I specialize in React ecosystems, design systems,
+                  and the craft of shipping great software.
+                </p>
+                <p>
+                  When I&apos;m not pushing pixels or optimizing bundle sizes,
+                  you&apos;ll find me contributing to open source, writing about
+                  frontend architecture, or exploring generative art with
+                  WebGL.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {[
+                  "Open Source",
+                  "Remote-first",
+                  "Design-minded",
+                  "Performance obsessed",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1.5 rounded-full border border-white/10 text-white/50 text-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
-            <motion.h2
-              variants={fadeInUp}
-              className="font-syne font-extrabold text-4xl md:text-5xl tracking-tight text-balance leading-tight mb-6"
-            >
-              Crafting interfaces that feel inevitable.
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/55 leading-relaxed mb-4 text-pretty"
-            >
-              I'm {APP_NAME}, a {APP_TAGLINE} based in San Francisco. For over
-              five years I've been obsessed with the intersection of engineering
-              precision and design sensibility — building products that are as
-              robust under the hood as they are beautiful on screen.
-            </motion.p>
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/55 leading-relaxed mb-8 text-pretty"
-            >
-              My background spans early-stage startups and Series B companies.
-              I've led frontend teams, architected design systems from scratch,
-              and shipped features used by hundreds of thousands of people. I
-              care deeply about performance, accessibility, and the small
-              details that make users smile.
-            </motion.p>
 
             {/* Services grid */}
             <motion.div
               variants={staggerContainer}
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
-              {services.map((svc) => (
+              {services.map((service) => (
                 <motion.div
-                  key={svc.title}
-                  variants={fadeInUp}
-                  whileHover={shouldReduce ? {} : { y: -3 }}
-                  className="p-4 rounded-2xl bg-white/3 border border-white/8 hover:border-purple-500/25 hover:bg-purple-500/5 transition-all duration-300"
+                  key={service.title}
+                  variants={scaleIn}
+                  className="p-5 rounded-2xl bg-[#1a1a1a] border border-white/5 hover:border-purple-500/20 transition-all duration-300 group"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-purple-500/15 flex items-center justify-center mb-3">
-                    <svc.icon size={16} className="text-purple-400" />
+                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mb-3 group-hover:bg-purple-500/20 transition-colors duration-300">
+                    <service.icon size={18} className="text-purple-400" />
                   </div>
-                  <h3 className="font-syne font-bold text-sm text-white mb-1">
-                    {svc.title}
+                  <h3 className="font-syne font-semibold text-white text-sm mb-1.5">
+                    {service.title}
                   </h3>
                   <p className="text-white/40 text-xs leading-relaxed">
-                    {svc.description}
+                    {service.description}
                   </p>
                 </motion.div>
               ))}
@@ -657,264 +443,286 @@ export default function HomePage() {
       </section>
 
       {/* ── PROJECTS ─────────────────────────────────────────────────────── */}
-      <section id="projects" className="py-28 px-6 bg-[#080808]">
+      <section id="projects" className="py-24 px-6 bg-[#0a0a0a]">
         <div className="max-w-6xl mx-auto">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="text-center mb-16"
           >
-            <motion.div variants={fadeInUp}>
-              <SectionLabel>Selected work</SectionLabel>
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <SectionLabel>Projects</SectionLabel>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl text-white">
+                Selected Work
+              </h2>
+              <p className="text-white/40 mt-4 max-w-xl mx-auto">
+                A curated selection of projects that showcase my range across
+                product, platform, and performance engineering.
+              </p>
             </motion.div>
-            <motion.h2
-              variants={fadeInUp}
-              className="font-syne font-extrabold text-4xl md:text-5xl tracking-tight text-balance"
-            >
-              Projects I'm proud of.
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/45 mt-4 max-w-xl mx-auto text-pretty"
-            >
-              A curated selection of products, platforms, and experiments built
-              with care and shipped to real users.
-            </motion.p>
-          </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
-            {projects.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
-            ))}
+            <motion.div
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              {projects.map((project, i) => (
+                <ProjectCard key={project.id} project={project} index={i} />
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* ── SKILLS ───────────────────────────────────────────────────────── */}
-      <section id="skills" className="py-28 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-          {/* Left: heading + copy */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-          >
-            <motion.div variants={fadeInUp}>
-              <SectionLabel>Expertise</SectionLabel>
-            </motion.div>
-            <motion.h2
-              variants={fadeInUp}
-              className="font-syne font-extrabold text-4xl md:text-5xl tracking-tight text-balance leading-tight mb-6"
-            >
-              Tools I reach for every day.
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/50 leading-relaxed mb-8 text-pretty"
-            >
-              Five years of deliberate practice across the full stack. I'm
-              strongest in the React ecosystem and TypeScript, but I'm
-              comfortable owning a project from database to deployment.
-            </motion.p>
-
-            {/* Tech pills */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-2">
-              {[
-                "React", "Next.js", "TypeScript", "Node.js",
-                "Tailwind CSS", "Framer Motion", "PostgreSQL",
-                "Figma", "Docker", "Vercel",
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1.5 rounded-full bg-white/5 border border-white/8 text-white/60 text-xs font-medium hover:border-purple-500/30 hover:text-purple-300 hover:bg-purple-500/5 transition-all duration-300 cursor-default"
-                >
-                  {tech}
-                </span>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Right: skill bars */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="space-y-6"
-          >
-            {skills.map((skill, i) => (
-              <SkillBar key={skill.name} skill={skill} index={i} />
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
-      <section className="py-28 px-6 bg-[#080808]">
+      <section id="skills" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="text-center mb-16"
           >
-            <motion.div variants={fadeInUp}>
-              <SectionLabel>Testimonials</SectionLabel>
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <SectionLabel>Skills</SectionLabel>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl text-white">
+                Tech Stack
+              </h2>
+              <p className="text-white/40 mt-4 max-w-xl mx-auto">
+                Tools and technologies I use to bring ideas to life.
+              </p>
             </motion.div>
-            <motion.h2
-              variants={fadeInUp}
-              className="font-syne font-extrabold text-4xl md:text-5xl tracking-tight"
+
+            <motion.div
+              variants={staggerContainer}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto"
             >
-              What clients say.
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {testimonials.map((t) => (
-              <motion.div
-                key={t.id}
-                variants={scaleIn}
-                whileHover={shouldReduce ? {} : { y: -5 }}
-                className="flex flex-col p-7 rounded-2xl bg-[#111111] border border-white/8 hover:border-purple-500/25 shadow-[0_2px_8px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_32px_rgba(168,85,247,0.1)] transition-all duration-500"
-              >
-                {/* Stars */}
-                <div className="flex gap-1 mb-5">
-                  {Array.from({ length: t.stars }).map((_, i) => (
-                    <Star
-                      key={i}
-                      size={14}
-                      className="text-purple-400 fill-purple-400"
-                    />
-                  ))}
-                </div>
-
-                <p className="text-white/65 text-sm leading-relaxed flex-1 mb-6 italic">
-                  "{t.quote}"
-                </p>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 bg-[#1a1a1a] flex-shrink-0">
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).style.display = "none";
-                      }}
+              {skills.map((skill) => (
+                <motion.div
+                  key={skill.name}
+                  variants={fadeInUp}
+                  className="group"
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <div>
+                      <span className="text-white font-medium text-sm">
+                        {skill.name}
+                      </span>
+                      <span className="ml-2 text-white/30 text-xs">
+                        {skill.category}
+                      </span>
+                    </div>
+                    <span className="text-purple-400 text-sm font-semibold">
+                      {skill.level}%
+                    </span>
+                  </div>
+                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                      className="h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full"
                     />
                   </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm font-syne">
-                      {t.name}
-                    </p>
-                    <p className="text-white/35 text-xs">{t.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* ── CONTACT ──────────────────────────────────────────────────────── */}
-      <section id="contact" className="py-28 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-          {/* Left: copy */}
+      {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
+      <section className="py-24 px-6 bg-[#0a0a0a]">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
           >
-            <motion.div variants={fadeInUp}>
-              <SectionLabel>Contact</SectionLabel>
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <SectionLabel>Testimonials</SectionLabel>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl text-white">
+                What Clients Say
+              </h2>
             </motion.div>
-            <motion.h2
-              variants={fadeInUp}
-              className="font-syne font-extrabold text-4xl md:text-5xl tracking-tight text-balance leading-tight mb-6"
-            >
-              Let's build something great together.
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/50 leading-relaxed mb-8 text-pretty"
-            >
-              I'm currently open to new projects and full-time opportunities.
-              Whether you have a product idea, need a technical co-founder for a
-              sprint, or just want to talk shop — my inbox is always open.
-            </motion.p>
 
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
+              {testimonials.map((t) => (
+                <motion.div
+                  key={t.id}
+                  variants={scaleIn}
+                  className="p-6 rounded-2xl bg-[#1a1a1a] border border-white/5 hover:border-purple-500/20 transition-all duration-300"
+                >
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: t.stars }).map((_, i) => (
+                      <Star
+                        key={i}
+                        size={14}
+                        className="text-purple-400 fill-purple-400"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-white/60 text-sm leading-relaxed mb-5">
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={t.avatar}
+                      alt={t.name}
+                      className="w-9 h-9 rounded-full object-cover bg-white/10"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display =
+                          "none";
+                      }}
+                    />
+                    <div>
+                      <div className="text-white text-sm font-semibold">
+                        {t.name}
+                      </div>
+                      <div className="text-white/30 text-xs">{t.role}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── CONTACT ──────────────────────────────────────────────────────── */}
+      <section id="contact" className="py-24 px-6">
+        <div className="max-w-2xl mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <SectionLabel>Contact</SectionLabel>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl text-white mb-4">
+                Let&apos;s Work Together
+              </h2>
+              <p className="text-white/40">
+                Have a project in mind? I&apos;d love to hear about it. Send me
+                a message and I&apos;ll get back to you within 24 hours.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={scaleIn}
+              className="bg-[#1a1a1a] rounded-2xl border border-white/5 p-8"
+            >
+              {submitted ? (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-4">
+                    <Check size={28} className="text-purple-400" />
+                  </div>
+                  <h3 className="font-syne font-bold text-xl text-white mb-2">
+                    Message Sent!
+                  </h3>
+                  <p className="text-white/40 text-sm">
+                    Thanks for reaching out. I&apos;ll be in touch soon.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-white/50 text-xs font-medium mb-2 uppercase tracking-wider">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formState.name}
+                        onChange={(e) =>
+                          setFormState((s) => ({ ...s, name: e.target.value }))
+                        }
+                        placeholder="Your name"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all duration-300"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-white/50 text-xs font-medium mb-2 uppercase tracking-wider">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formState.email}
+                        onChange={(e) =>
+                          setFormState((s) => ({
+                            ...s,
+                            email: e.target.value,
+                          }))
+                        }
+                        placeholder="your@email.com"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all duration-300"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-white/50 text-xs font-medium mb-2 uppercase tracking-wider">
+                      Message
+                    </label>
+                    <textarea
+                      required
+                      rows={5}
+                      value={formState.message}
+                      onChange={(e) =>
+                        setFormState((s) => ({
+                          ...s,
+                          message: e.target.value,
+                        }))
+                      }
+                      placeholder="Tell me about your project..."
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/8 transition-all duration-300 resize-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="w-full py-3.5 bg-purple-500 hover:bg-purple-400 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    {sending ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              )}
+            </motion.div>
+
+            {/* Direct contact */}
+            <motion.div
+              variants={fadeInUp}
+              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6"
+            >
               <a
                 href={`mailto:${APP_EMAIL}`}
-                className="flex items-center gap-3 text-white/60 hover:text-purple-400 transition-colors duration-300 group"
+                className="flex items-center gap-2 text-white/40 hover:text-white text-sm transition-colors duration-300"
               >
-                <div className="w-10 h-10 rounded-full border border-white/10 group-hover:border-purple-400/40 flex items-center justify-center transition-colors duration-300">
-                  <Mail size={16} />
-                </div>
-                <span className="text-sm font-medium">{APP_EMAIL}</span>
+                <Mail size={16} />
+                {APP_EMAIL}
               </a>
-              <div className="flex gap-3 pt-2">
-                {[
-                  { icon: Github, href: "https://github.com", label: "GitHub" },
-                  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-                  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                ].map(({ icon: Icon, href, label }) => (
+              <div className="flex gap-3">
+                {socials.slice(0, 3).map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-purple-400 hover:border-purple-400/40 hover:bg-purple-400/5 transition-all duration-300"
+                    className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-purple-400 hover:border-purple-400/40 transition-all duration-300"
                   >
-                    <Icon size={16} />
+                    <Icon size={15} />
                   </a>
                 ))}
               </div>
             </motion.div>
-
-            {/* Availability badge */}
-            <motion.div
-              variants={fadeInUp}
-              className="mt-10 inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/3 border border-white/8"
-            >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
-              </span>
-              <span className="text-white/60 text-sm">
-                Available for new projects starting{" "}
-                <span className="text-white font-semibold">February 2025</span>
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* Right: form */}
-          <motion.div
-            variants={shouldReduce ? fadeIn : slideInRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="p-8 rounded-3xl bg-[#111111] border border-white/8 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_24px_64px_-16px_rgba(0,0,0,0.5)]"
-          >
-            <ContactForm />
           </motion.div>
         </div>
       </section>
